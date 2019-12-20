@@ -27,8 +27,9 @@ def createUnicastPacket(payload, sequenceNumber, isACK, isEnd):
 
 
 # HEADER
-# 00:0-> packet 0 01:1->ACK packet 0
-# 10:2-> packet 1 11:3 -> ACK packet 1
+# Lower bit: isACK
+# Second Lower bit: sequenceNumber
+# Third Lower bit: is End
 def createUnicastHeader(sequenceNumber, isACK, isEnd):
     header = boolToNum(isACK) + (sequenceNumber << 1) + (boolToNum(isEnd) << 2)
     return header
@@ -97,7 +98,7 @@ def boolToNum(boolVar):
     }
     return mapper[boolVar]
 
-#Maps a int to a boolean 
+#Maps a int to a boolean
 def numToBool(num):
     mapper = {
         0: False,
